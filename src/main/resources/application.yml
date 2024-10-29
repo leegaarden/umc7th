@@ -3,6 +3,19 @@ spring:
     name: test
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://umc7th-db.cfw6kq6qgqaj.ap-northeast-2.rds.amazonaws.com:3306
+    url: jdbc:mysql://umc7th-db.cfw6kq6qgqaj.ap-northeast-2.rds.amazonaws.com:3306/test
     username: ${DB_USER}
     password: ${DB_PASSWORD}
+  sql:
+    init:
+      mode: never
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        default_batch_fetch_size: 1000
+    hibernate:
+      ddl-auto: create
