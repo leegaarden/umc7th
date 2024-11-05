@@ -3,9 +3,9 @@ spring:
     name: test
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://umc7th-db.cfw6kq6qgqaj.ap-northeast-2.rds.amazonaws.com:3306/test
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://localhost:3306/umc7th_db?serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
+    username: umc7th
+    password: umc7th123!
   sql:
     init:
       mode: never
