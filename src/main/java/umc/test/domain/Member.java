@@ -47,10 +47,12 @@ public class Member extends BaseEntity {
 
     private LocalDate inactiveDate;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = true, length = 50)
     private String email;
 
     private Integer point;
+
+    private Integer age; // 나이 추가
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberAgree> memberAgreeList = new ArrayList<>();
