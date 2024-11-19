@@ -22,7 +22,7 @@ public class StoreRestController {
     private final StoreCommandService storeCommandService;
 
     // 특정 지역에 가게 추가
-    @PostMapping
+    @PostMapping("/add-store")
     public ApiResponse<StoreResponseDTO.AddStoreResDTO> createStore(@Valid @RequestBody StoreRequestDTO.AddStoreReqDTO request) {
 
         Store store = storeCommandService.createStore(request);
