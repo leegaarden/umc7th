@@ -15,7 +15,7 @@ import umc.test.web.dto.memberMission.MemberMissionResponseDTO;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/member-missions")
+@RequestMapping("api/v1/member-missions")
 public class MemberMissionRestController {
     private final MemberMissionCommandService memberMissionCommandService;
 
