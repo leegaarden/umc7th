@@ -16,7 +16,6 @@ public enum ErrorStatus implements BaseErrorCode {
     _UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"COMMON401","인증이 필요합니다."),
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
 
-
     // 멤버 관려 에러
     MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "사용자가 없습니다."),
     NICKNAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "MEMBER4002", "닉네임은 필수 입니다."),
@@ -26,9 +25,11 @@ public enum ErrorStatus implements BaseErrorCode {
     // 리전 관련
     REGION_NOT_FOUND(HttpStatus.NOT_FOUND, "REGION4001", "리전을 찾을 수 없습니다."),
 
-    // For test
-    TEMP_EXCEPTION(HttpStatus.BAD_REQUEST, "TEMP4001", "이거는 테스트"),
-    STORE_NOT_FOUND(HttpStatus.BAD_REQUEST, "STORE4001", "해당 가게를 찾을 수 없습니다.");
+    // 가게 관련
+    STORE_NOT_FOUND(HttpStatus.BAD_REQUEST, "STORE4001", "해당 가게를 찾을 수 없습니다."),
+
+    // 미션 관련
+    MISSION_NOT_FOUND(HttpStatus.BAD_REQUEST, "MISSION4001", "해당 미션은 존재하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

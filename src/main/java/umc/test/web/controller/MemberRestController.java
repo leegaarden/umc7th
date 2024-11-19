@@ -20,10 +20,13 @@ public class MemberRestController {
 
     private final MemberCommandService memberCommandService;
 
+    // 회원가입
     @PostMapping("/sign-up")
     public ApiResponse<MemberResponseDTO.JoinResultDTO> join
             (@RequestBody @Valid MemberRequestDTO.JoinDto request){
         Member member = memberCommandService.joinMember(request);
         return ApiResponse.onSuccess(MemberConverter.toJoinResultDTO(member));
     }
+
+    // 미션 도전하기
 }
