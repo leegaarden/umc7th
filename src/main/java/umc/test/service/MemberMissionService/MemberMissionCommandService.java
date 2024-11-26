@@ -5,4 +5,7 @@ import umc.test.web.dto.memberMission.MemberMissionRequestDTO;
 
 public interface MemberMissionCommandService {
     MemberMission createMemberMission(MemberMissionRequestDTO.ChallengeMissionReqDTO request);
+    
+    // 내 미션 완료하기
+    MemberMission completeMission(Long memberMissionId);
 }

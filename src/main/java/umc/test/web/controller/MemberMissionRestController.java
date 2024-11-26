@@ -18,6 +18,7 @@ import umc.test.service.MemberMissionService.MemberMissionCommandService;
 import umc.test.service.MemberMissionService.MemberMissionQueryService;
 import umc.test.validation.annotation.CheckPage;
 import umc.test.validation.annotation.ExistMember;
+import umc.test.validation.annotation.ExistMemberMission;
 import umc.test.web.dto.memberMission.MemberMissionRequestDTO;
 import umc.test.web.dto.memberMission.MemberMissionResponseDTO;
 
@@ -54,6 +55,22 @@ public class MemberMissionRestController {
             @CheckPage @RequestParam(name = "page") Integer page) {
         Page<MemberMission> memberMissionList = memberMissionQueryService.getMyMissionList(memberId, page);
         return ApiResponse.onSuccess(MemberMissionConverter.toMemberMissionPreViewListDTO(memberMissionList));
+    }
+
+    // 미션 완료하기
+    @Operation(summary = "미션 완료 처리 API", description = "진행 중인 미션을 완료 상태로 변경합니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MISSION404", description = "존재하지 않는 미션입니다.",
+                    content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MISSION400", description = "진행 중인 미션이 아닙니다.",
+                    content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    @PatchMapping("/complete")
+    public ApiResponse<MemberMissionResponseDTO.MissionCompleteResultDTO> completeMission(
+            @RequestBody @Valid MemberMissionRequestDTO.MissionCompleteDTO request) {
+        MemberMission memberMission = memberMissionCommandService.completeMission(request.getMemberMissionId());
+        return ApiResponse.onSuccess(MemberMissionConverter.toMissionCompleteResultDTO(memberMission));
     }
 
 }

@@ -64,4 +64,16 @@ public class MemberMissionResponseDTO {
         @Schema(description = "미션 시작일")
         LocalDateTime createdAt;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Schema(title = "MEMBERMISSION_RES_04 : 미션 완료 응답 DTO")
+    public static class MissionCompleteResultDTO {
+        @Schema(description = "변경된 미션 상태")
+        MissionStatus missionStatus;
+        @Schema(description = "변경 시각")
+        LocalDateTime updatedAt;
+    }
 }

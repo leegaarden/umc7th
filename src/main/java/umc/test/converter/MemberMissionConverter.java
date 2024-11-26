@@ -59,4 +59,12 @@ public class MemberMissionConverter {
                 .isLast(memberMissionList.isLast())
                 .build();
     }
+
+    // 미션 완료하기
+    public static MemberMissionResponseDTO.MissionCompleteResultDTO toMissionCompleteResultDTO(MemberMission memberMission) {
+        return MemberMissionResponseDTO.MissionCompleteResultDTO.builder()
+                .missionStatus(memberMission.getStatus())
+                .updatedAt(memberMission.getUpdatedAt())
+                .build();
+    }
 }
