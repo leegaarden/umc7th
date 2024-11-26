@@ -53,4 +53,40 @@ public class ReviewResponseDTO {
         String body;
         LocalDate createdAt;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Schema(title = "REVIEW_RES_04 : 내 리뷰 목록 응답 DTO")
+    public static class MyReviewPreViewListDTO {
+        @Schema(description = "리뷰 목록")
+        List<MyReviewPreViewDTO> reviewList;
+        @Schema(description = "리스트 크기")
+        Integer listSize;
+        @Schema(description = "전체 페이지 수")
+        Integer totalPage;
+        @Schema(description = "전체 원소 수")
+        Long totalElements;
+        @Schema(description = "첫 페이지 여부")
+        Boolean isFirst;
+        @Schema(description = "마지막 페이지 여부")
+        Boolean isLast;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Schema(title = "REVIEW_RES_05 : 내 리뷰 응답 DTO")
+    public static class MyReviewPreViewDTO {
+        @Schema(description = "가게 이름")
+        String storeName;
+        @Schema(description = "리뷰 제목")
+        String title;
+        @Schema(description = "평점")
+        Float score;
+        @Schema(description = "작성일")
+        LocalDate createdAt;
+    }
 }

@@ -1,6 +1,7 @@
 package umc.test.apiPayload.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -18,6 +20,7 @@ import umc.test.apiPayload.ApiResponse;
 import umc.test.apiPayload.code.ErrorReasonDTO;
 import umc.test.apiPayload.code.status.ErrorStatus;
 import umc.test.apiPayload.exception.GeneralException;
+import umc.test.apiPayload.exception.handler.InvalidPageHandler;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -31,9 +34,14 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<Object> validation(ConstraintViolationException e, WebRequest request) {
         String errorMessage = e.getConstraintViolations().stream()
-                .map(constraintViolation -> constraintViolation.getMessage())
+                .map(ConstraintViolation::getMessage)
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("ConstraintViolationException 추출 도중 에러 발생"));
+
+        // STORE_NOT_FOUND 처리
+        if(errorMessage.equals("STORE_NOT_FOUND")) {
+            return handleExceptionInternalConstraint(e, ErrorStatus.STORE_NOT_FOUND, HttpHeaders.EMPTY, request);
+        }
 
         return handleExceptionInternalConstraint(e, ErrorStatus.valueOf(errorMessage), HttpHeaders.EMPTY,request);
     }
@@ -118,4 +126,6 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
                 request
         );
     }
+
+
 }

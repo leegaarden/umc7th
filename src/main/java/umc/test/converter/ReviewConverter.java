@@ -57,4 +57,30 @@ public class ReviewConverter {
                 .reviewList(reviewPreViewDTOList)
                 .build();
     }
+
+    // 내가 쓴 리뷰 목록 조회
+    public static ReviewResponseDTO.MyReviewPreViewDTO toMyReviewPreViewDTO(Review review) {
+        return ReviewResponseDTO.MyReviewPreViewDTO.builder()
+                .storeName(review.getStore().getName())
+                .title(review.getTitle())
+                .score(review.getScore())
+                .createdAt(review.getCreatedAt().toLocalDate())
+                .build();
+    }
+
+    // 내가 쓴 리뷰
+    public static ReviewResponseDTO.MyReviewPreViewListDTO toMyReviewPreViewListDTO(Page<Review> reviewList) {
+        List<ReviewResponseDTO.MyReviewPreViewDTO> reviewPreViewDTOList = reviewList.stream()
+                .map(ReviewConverter::toMyReviewPreViewDTO)
+                .collect(Collectors.toList());
+
+        return ReviewResponseDTO.MyReviewPreViewListDTO.builder()
+                .reviewList(reviewPreViewDTOList)
+                .listSize(reviewPreViewDTOList.size())
+                .totalPage(reviewList.getTotalPages())
+                .totalElements(reviewList.getTotalElements())
+                .isFirst(reviewList.isFirst())
+                .isLast(reviewList.isLast())
+                .build();
+    }
 }
